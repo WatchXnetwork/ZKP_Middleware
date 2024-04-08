@@ -1,0 +1,23 @@
+{
+  "name": "web-data-privacy",
+  "version": "0.0.1",
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/WatchX/web-data-privacy"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "main": "./dist/api/main.js",
+  "scripts": {
+    "start": "pnpm --stream --parallel -r start",
+    "dev": "pnpm --stream --parallel -r dev",
+    "demo": "pnpm --stream --parallel -r demo",
+    "build": "pnpm --stream --parallel -r build",
+    "build:server": "cd smart-contract && pnpm --stream --parallel -r build"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

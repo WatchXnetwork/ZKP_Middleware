@@ -1,0 +1,35 @@
+{
+  "name": "web-data-privacy",
+  "version": "0.0.1",
+  "description": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/karamokoisrael/web-data-privacy"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "main": "./dist/api/main.js",
+  "scripts": {
+    "start": "npm run start:validator",
+    "dev": "npx nodemon --exec \"npm run build-no-clean\"",
+    "demo": "npm run start:validator && npm run build",
+    "start:validator": "cd test-validator && solana-test-validator",
+    "start-with-test-validator": "start-server-and-test 'solana-test-validator --reset --quiet' http://localhost:8899/health start",
+    "build": "npm run clean && npm run build-no-clean",
+    "build:validator": "npm run clean && npm run build-no-clean && npm run validator",
+    "build-no-clean": "cargo build-bpf --manifest-path=./Cargo.toml --bpf-out-dir=dist/program",
+    "build-deploy": "npm run build && npm run deploy",
+    "test": "cargo test-bpf --manifest-path=./Cargo.toml",
+    "deploy": "solana program deploy dist/program/program.so",
+    "logs": "solana logs",
+    "logs:filter": "solana logs | grep",
+    "clean": "cargo clean --manifest-path=./Cargo.toml && rm -rf ./dist"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

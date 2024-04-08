@@ -1,0 +1,60 @@
+{
+    "name": "web-data-privacy",
+    "version": "0.0.1",
+    "description": "",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/karamokoisrael/web-data-privacy"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "MIT",
+    "main": "./dist/api/main.js",
+    "scripts": {
+        "start": "ts-node api/src/main.ts",
+        "build": "tsc -p .",
+        "dev": "pnpm --stream --parallel -r dev",
+        "start:api": "npx ts-node api/src/main.ts",
+        "start:api-server": "npm run build-deploy:server && npm run start",
+        "start-with-test-validator": "start-server-and-test 'solana-test-validator --reset --quiet' http://localhost:8899/health start",
+        "deploy:server": "solana program deploy dist/program/smartwatch.so",
+        "build:server": "rm -r dist/program && npm run build-no-reset:server",
+        "build-no-reset:server": "cargo build-bpf --manifest-path=./smart-contract/Cargo.toml --bpf-out-dir=dist/program",
+        "build-deploy:server": "npm run build:server && npm run deploy:server",
+        "clean:server": "cargo clean --manifest-path=./smart-contract/Cargo.toml && rm -rf ./dist",
+        "clean": "npm run clean:pssrogram-c && npm run clean:smart-contract",
+        "start:cluster": "cd dist && solana-test-validator",
+        "test:server": "cargo test-bpf --manifest-path=./smart-contract/Cargo.toml",
+        "solana:logs": "solana logs | grep ''",
+        "svn:ignore": "svn propset svn:ignore 'filename.txt' ."
+    },
+    "dependencies": {
+        "@solana/web3.js": "^1.91.2",
+        "borsh": "^0.7.0",
+        "buffer-layout": "^1.2.2",
+        "dotenv": "^16.4.5",
+        "mz": "^2.7.0",
+        "yaml": "^2.0.0"
+    },
+    "devDependencies": {
+        "@tsconfig/recommended": "^1.0.1",
+        "@types/eslint": "^8.2.2",
+        "@types/eslint-plugin-prettier": "^3.1.0",
+        "@types/mz": "^2.7.2",
+        "@types/node": "^20.11.30",
+        "@types/prettier": "^2.1.5",
+        "@types/yaml": "^1.9.7",
+        "@typescript-eslint/eslint-plugin": "^4.6.0",
+        "@typescript-eslint/parser": "^4.6.0",
+        "eslint": "^7.12.1",
+        "eslint-config-prettier": "^6.15.0",
+        "eslint-plugin-prettier": "^4.0.0",
+        "prettier": "^2.1.2",
+        "start-server-and-test": "^1.11.6",
+        "ts-node": "^10.0.0",
+        "typescript": "^4.0.5"
+    },
+    "engines": {
+        "node": ">=14.0.0"
+    }
+}
